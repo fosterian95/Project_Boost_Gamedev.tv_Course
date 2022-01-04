@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+
+    int GetSceneIndex() {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        return currentSceneIndex;
+    }
     void OnCollisionEnter(Collision other) {
         switch (other.gameObject.tag) {
             case "Finish":
-                Debug.Log("Touched the landing pad - level finished!");
+                LoadNextLevel();
                 break;
             case "Friendly":
                 Debug.Log("Touched the launch pad - returning to the start of the level");
@@ -20,8 +25,17 @@ public class CollisionHandler : MonoBehaviour
     }
 
     void ReloadLevel() {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int currentSceneIndex = GetSceneIndex();
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    void LoadNextLevel() {
+        int currentSceneIndex = GetSceneIndex();
+        int nextSceneIndex = currentSceneIndex + 1;
+        if (nextSceneIndex == SceneManager.sceneCountInBuildSettings) {
+            nextSceneIndex = 0;
+        }
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }
 
