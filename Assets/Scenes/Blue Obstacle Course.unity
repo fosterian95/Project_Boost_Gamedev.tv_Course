@@ -833,18 +833,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1769935346, guid: e2f0abc5d897e4546975b14afe2fd49c, type: 3}
-      propertyPath: deathCollision
-      value: 
-      objectReference: {fileID: 8300000, guid: 2d1a9ae28a705ce4097f18deb2c459fa, type: 3}
-    - target: {fileID: 1769935346, guid: e2f0abc5d897e4546975b14afe2fd49c, type: 3}
-      propertyPath: successfulLanding
-      value: 
-      objectReference: {fileID: 8300000, guid: 4740e2dbee835fc4eb539dd1a611f77a, type: 3}
-    - target: {fileID: 3790368872472850329, guid: e2f0abc5d897e4546975b14afe2fd49c, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 3790368873056790097, guid: e2f0abc5d897e4546975b14afe2fd49c, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -893,10 +881,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocket
       objectReference: {fileID: 0}
-    - target: {fileID: 8652934347249468528, guid: e2f0abc5d897e4546975b14afe2fd49c, type: 3}
-      propertyPath: mainEngine
-      value: 
-      objectReference: {fileID: 8300000, guid: da3bc1968fe02734fa568befc26f1063, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f0abc5d897e4546975b14afe2fd49c, type: 3}
 --- !u!1001 &7648166893343201169
