@@ -12,6 +12,8 @@ public class CollisionHandler : MonoBehaviour
 
     AudioSource audioSource;
 
+    bool isTransitioning = false;
+
     void Start() {
         audioSource = GetComponent<AudioSource>();
     }
@@ -20,29 +22,35 @@ public class CollisionHandler : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         return currentSceneIndex;
     }
+
     void OnCollisionEnter(Collision other) {
-        switch (other.gameObject.tag) {
-            case "Finish":
-                StartSuccessSequence();
-                break;
-            case "Friendly":
-                Debug.Log("Touched the launch pad - returning to the start of the level");
-                break;
-            default:
-                StartCrashSequence();
-                break;
-        }
+        if (isTransitioning) { return; }
+            switch (other.gameObject.tag) {
+                case "Finish":
+                    StartSuccessSequence();
+                    break;
+                case "Friendly":
+                    Debug.Log("Touched the launch pad - returning to the start of the level");
+                    break;
+                default:
+                    StartCrashSequence();
+                    break;
+            }
     }
 
     private void StartSuccessSequence()
     {
+        audioSource.Stop();
         audioSource.PlayOneShot(successfulLanding);
+        isTransitioning = true;
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", levelLoadDelay);
     }
 
     void StartCrashSequence() {
+        audioSource.Stop();
         audioSource.PlayOneShot(deathCollision);
+        isTransitioning = true;
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", levelLoadDelay);
     }
