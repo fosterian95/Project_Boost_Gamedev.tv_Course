@@ -10,6 +10,9 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] AudioClip successfulLanding;
     [SerializeField] AudioClip deathCollision;
 
+    [SerializeField] ParticleSystem successfulLandingParticles;
+    [SerializeField] ParticleSystem deathCollisionParticles;
+
     AudioSource audioSource;
 
     bool isTransitioning = false;
@@ -42,6 +45,7 @@ public class CollisionHandler : MonoBehaviour
     {
         audioSource.Stop();
         audioSource.PlayOneShot(successfulLanding);
+        successfulLandingParticles.Play();
         isTransitioning = true;
         GetComponent<Movement>().enabled = false;
         Invoke("LoadNextLevel", levelLoadDelay);
@@ -50,6 +54,7 @@ public class CollisionHandler : MonoBehaviour
     void StartCrashSequence() {
         audioSource.Stop();
         audioSource.PlayOneShot(deathCollision);
+        deathCollisionParticles.Play();
         isTransitioning = true;
         GetComponent<Movement>().enabled = false;
         Invoke("ReloadLevel", levelLoadDelay);
