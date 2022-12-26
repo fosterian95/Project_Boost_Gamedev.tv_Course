@@ -8,6 +8,9 @@ public class Movement : MonoBehaviour
     [SerializeField] float vertical_thrust = 1000f;
     [SerializeField] float rotation_thrust = 0.1f;
     [SerializeField] AudioClip mainEngine;
+    [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem leftThrusterParticles;
+    [SerializeField] ParticleSystem rightThrusterParticles;
 
     Rigidbody rb;
     AudioSource audioSource;
@@ -26,17 +29,33 @@ public class Movement : MonoBehaviour
         ProcessRotation();
     }
 
-    void ProcessThrust() {
+    void ProcessThrust()
+    {
         //Method for getting spacebar input for accelerating rocket
         if (Input.GetKey(KeyCode.Space)) {
-            float vertical_force = vertical_thrust * Time.deltaTime;
-            rb.AddRelativeForce(0, vertical_force, 0);
-            if (!audioSource.isPlaying) {
-                audioSource.PlayOneShot(mainEngine);
-            } 
+            ApplyThrust();
         } else {
             audioSource.Stop();
+            mainEngineParticles.Stop();
         }
+    }
+
+    private void ApplyThrust()
+    {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            float vertical_force = vertical_thrust * Time.deltaTime;
+            rb.AddRelativeForce(0, vertical_force, 0);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(mainEngine);
+            }
+            if (!mainEngineParticles.isPlaying)
+            {
+                mainEngineParticles.Play();
+            }
+        }
+        
     }
 
     void ProcessRotation() {
@@ -44,9 +63,19 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             ApplyRotation(rotation_thrust);
+            if (!leftThrusterParticles.isPlaying) {
+                leftThrusterParticles.Play();
+            }
+        } else {
+            leftThrusterParticles.Stop();
         }
-        else if (Input.GetKey(KeyCode.D)) {
+        if (Input.GetKey(KeyCode.D)) {
             ApplyRotation(-rotation_thrust);
+            if (!rightThrusterParticles.isPlaying) {
+                rightThrusterParticles.Play();
+            }
+        } else {
+            rightThrusterParticles.Stop();
         }
     }
 
