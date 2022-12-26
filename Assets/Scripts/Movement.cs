@@ -40,6 +40,24 @@ public class Movement : MonoBehaviour
         }
     }
 
+    void ProcessRotation() {
+        //Method for checking if player is rotating the rocket and seeing which direction to rotate
+        if (Input.GetKey(KeyCode.A))
+        {
+            RotateLeft();
+        }
+        else {
+            leftThrusterParticles.Stop();
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            RotateRight();
+        }
+        else {
+            rightThrusterParticles.Stop();
+        }
+    }
+
     private void ApplyThrust()
     {
         if (Input.GetKey(KeyCode.Space))
@@ -62,24 +80,6 @@ public class Movement : MonoBehaviour
     {
         audioSource.Stop();
         mainEngineParticles.Stop();
-    }
-
-    void ProcessRotation() {
-        //Method for checking if player is rotating the rocket and seeing which direction to rotate
-        if (Input.GetKey(KeyCode.A))
-        {
-            RotateLeft();
-        }
-        else {
-            leftThrusterParticles.Stop();
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            RotateRight();
-        }
-        else {
-            rightThrusterParticles.Stop();
-        }
     }
 
     private void RotateLeft()
